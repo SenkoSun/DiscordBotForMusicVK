@@ -110,7 +110,7 @@ async def play_next(interaction: discord.Interaction):
     voice_client = interaction.guild.voice_client
     queue = get_queue(interaction.guild.id)
 
-    if len(queue) == 0:
+    if len(queue) <= 0:
         return
     
     # await interaction.response.defer(thinking=True)
@@ -138,7 +138,7 @@ async def queue(interaction: discord.Interaction):
     )
     
     queue = get_queue(interaction.guild.id)
-    for i in range(len(queue) - 1, len(queue) - 26, -1):
+    for i in range(len(queue) - 1, max(len(queue) - 26, -1), -1):
         if i == len(queue) - 1:
             embed.add_field(name="", value = f"**{len(queue) - i}. {queue[i].channel} - {queue[i].title}**" , inline=False)
         else:
